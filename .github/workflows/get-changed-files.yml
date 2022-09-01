@@ -18,7 +18,7 @@ jobs:
         id: changes
         run: |
           echo 
-          echo "::set-output name=all::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.before }} ${{ github.sha }} | xargs)"
+          echo "::set-output name=all::$()"
           echo "::set-output name=ts::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.before }} ${{ github.sha }} | grep .ts$ | xargs)"
       - name: Echo changed files
         run: echo ${{ steps.changes.outputs.all }}
@@ -28,4 +28,14 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+
+  my_action:
+    needs: changedFiles
+    runs-on: ubuntu-latest
+    steps:
+      - name: Action 
+        uses: omikkelc/check-for-console-log@v1.1
+        id: check-files
+      - name: Echo ls
+        run: echo ${{ steps.check-files.outputs.ls }}
       
