@@ -24,7 +24,7 @@ jobs:
     # require the first job to have ran
     needs: changedfiles
     # only run there are changed files
-    if: ${{needs.changes.outputs.all}}
+    if: ${{steps.changes.outputs.all}}
     steps:
       - name: echo changed files
-        run: echo ${{needs.changes.outputs.all}}
+        run: echo ${{steps.changes.outputs.all}}
