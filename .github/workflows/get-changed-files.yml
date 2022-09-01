@@ -19,12 +19,6 @@ jobs:
           echo "::set-output name=ts::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .ts$ | xargs)"
       - name: Echo changed files
         run: echo ${{ steps.changes.outputs.all }}
-  lint:
-    runs-on: ubuntu-latest
-    # require the first job to have ran
-    needs: changedfiles
-    # only run there are changed files
-    if: ${{steps.changes.outputs.all}}
-    steps:
       - name: echo changed files
-        run: echo ${{steps.changes.outputs.all}}
+        run: echo "TEST"
+      
