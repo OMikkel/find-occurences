@@ -22,4 +22,8 @@ jobs:
         run: echo ${{ steps.changes.outputs.all }}
       - name: echo changed files
         run: echo "${{ github.event.push.base.sha }} ${{ github.sha }}"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
       
