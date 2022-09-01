@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
       # Map a step output to a job output
     outputs:
-      all: ${{ steps.changes.outputs.all}}
+      all: ${{ steps.changes.outputs.all }}
       ts: ${{ steps.changes.outputs.ts }}
     steps:
         # Make sure we have some code to diff.
@@ -29,7 +29,7 @@ jobs:
     # require the first job to have ran
     needs: changedfiles
     # only run there are changed files
-    # if: ${{needs.changedfiles.outputs.ts}}
+    if: ${{needs.changedfiles.outputs.all}}
     steps:
       - name: echo changed files
-        run: echo ${{needs.changedfiles.outputs.ts}}
+        run: echo ${{needs.changedfiles.outputs.all}}
