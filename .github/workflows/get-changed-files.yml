@@ -16,12 +16,12 @@ jobs:
         id: changes
         run: |
           echo 
-          echo "::set-output name=all::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)"
-          echo "::set-output name=ts::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .ts$ | xargs)"
+          echo "::set-output name=all::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.before }} ${{ github.sha }} | xargs)"
+          echo "::set-output name=ts::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.before }} ${{ github.sha }} | grep .ts$ | xargs)"
       - name: Echo changed files
         run: echo ${{ steps.changes.outputs.all }}
       - name: echo changed files
-        run: echo "${{ github.event.push.base.sha }} ${{ github.sha }}"
+        run: echo "${{ github.event.before }} ${{ github.sha }}"
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
