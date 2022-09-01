@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Action 
-        uses: omikkelc/check-for-console-log@v1.1
+        uses: ./
         id: check-files
       - name: Echo ls
         run: echo ${{ steps.check-files.outputs.ls }}
