@@ -41,5 +41,5 @@ jobs:
         uses: ./
         id: check-files
       - name: Echo ls
-        run: echo ${{ steps.check-files.outputs.ls }}
+        run: echo "${{ steps.check-files.outputs.ls }}"
       
