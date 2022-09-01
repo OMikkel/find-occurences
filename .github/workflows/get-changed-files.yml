@@ -15,11 +15,11 @@ jobs:
       - name: Get changed files
         id: changes
         run: |
-          echo "${{ github.event.pull_request.base.sha }} ${{ github.sha }}"
+          echo 
           echo "::set-output name=all::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)"
           echo "::set-output name=ts::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .ts$ | xargs)"
       - name: Echo changed files
         run: echo ${{ steps.changes.outputs.all }}
       - name: echo changed files
-        run: echo "TEST"
+        run: echo "${{ github.event.pull_request.base.sha }} ${{ github.sha }}"
       
