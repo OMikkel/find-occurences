@@ -39,8 +39,9 @@ const run = async () => {
                 if (occurences.length > 0) {
                     if (should_fail == "true") {
                         core.setFailed(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
+                    }else{
+                        core.warning(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
                     }
-                    core.warning(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
                 }
             })
         } catch (error) {
