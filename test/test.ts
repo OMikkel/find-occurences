@@ -1,1 +1,1 @@
-console.error()
+console.error() // <- cursor here
