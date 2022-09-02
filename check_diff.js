@@ -35,6 +35,8 @@ const check_diff_fnc = async (before, after, file_types, search_term, should_fai
             }else{
                 core.warning(`Found ${ occurences_count } occurences of ${ search_term }\n${ occurences }`);
             }
+        }else{
+            core.notice(`Found ${ occurences_count } occurences of ${ search_term }`);
         }
     })
 }
