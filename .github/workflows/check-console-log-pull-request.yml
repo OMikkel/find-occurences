@@ -23,4 +23,4 @@ jobs:
           search-term: console.log|console.error
           file-types: (.ts|.js|.tsx|.jsx)$
           should-fail: true
-          check-all: false
+          check-all: true
