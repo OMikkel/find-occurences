@@ -36,6 +36,8 @@ export const check_all_fnc = async (check_all_exclude, file_types, search_term, 
             }else{
                 core.warning(`Found ${ occurences_count } occurences of ${ search_term }\n${ occurences }`);
             }
+        }else{
+            core.info(`Found ${ occurences_count } occurences of ${ search_term }\n${ occurences }`);
         }
     })
 }
