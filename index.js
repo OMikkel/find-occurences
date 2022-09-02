@@ -11,7 +11,7 @@ try {
             return
         }
         core.setOutput("all", output);
-        core.debug(output)
+        core.debug(output.replace(/(\r\n|\r|\n)/g, ""))
     })
 } catch (error) {
     core.setFailed(error.message);
