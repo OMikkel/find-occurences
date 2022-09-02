@@ -34,6 +34,7 @@ jobs:
         with:
           before-sha: ${{ github.event.before }}
           after-sha: ${{ github.sha }}
+          search-term: 'console.log|console.error'
 
       - name: All changed files (typescript/javascript)
         run: echo "${{ steps.changed-files.outputs.all }}"

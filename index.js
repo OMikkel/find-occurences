@@ -7,6 +7,7 @@ const run = async () => {
     try {
         const before_sha = core.getInput("before-sha")
         const after_sha = core.getInput("after-sha")
+        const search_term = core.getInput("search-term")
         const { stdout, stderr } = await exec(`git diff --name-only --diff-filter=ACMRT ${ before_sha } ${ after_sha } | grep -E '(.ts|.js|.tsx|.jsx)$' | xargs`);
         if (stderr) {
             core.setFailed(stderr);
@@ -16,7 +17,7 @@ const run = async () => {
         const files = stdout.split(" ").map(file => file.trim())
         core.debug(files)
         files.map(async file => {
-            const { stdout, stderr } = await exec("grep -E 'console.log|console.error' ./" + file);
+            const { stdout, stderr } = await exec(`grep --color=auto -n -c -E ${ search_term } ./${ file }`);
             if (stderr) {
                 core.setFailed(stderr);
                 return

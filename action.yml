@@ -13,6 +13,10 @@ inputs:
     description: 'Sha of the commit'
     required: true
     default: ''
+  search-term:
+    description: 'What to search for'
+    required: true
+    default: ''
 outputs:
   all:
     description: 'A list of all the changed typescript/javascript files'
