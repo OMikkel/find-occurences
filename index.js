@@ -5,8 +5,8 @@ const exec = util.promisify(require('node:child_process').exec);
 
 const run = async () => {
     try {
-        const before_sha = core.getInput("before-sha")
-        const after_sha = core.getInput("after-sha")
+        const before = core.getInput("before")
+        const after = core.getInput("after")
         const search_term = core.getInput("search-term")
         const file_types = core.getInput("file-types")
         const should_fail = core.getInput("should-fail")
@@ -14,7 +14,7 @@ const run = async () => {
         var occurences_count = 0
 
         try {
-            const { stdout, stderr } = await exec(`git diff --name-only --diff-filter=ACMRT ${ before_sha } ${ after_sha } | grep -E '${ file_types }' | xargs`);
+            const { stdout, stderr } = await exec(`git diff --name-only --diff-filter=ACMRT ${ before }...${ after } | grep -E '${ file_types }' | xargs`);
             if (stderr) {
                 core.setFailed(stderr);
                 return

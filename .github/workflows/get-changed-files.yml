@@ -9,9 +9,11 @@ on:
       - '**'
     
 jobs:
-  find_occurences:
-    name: Find occurences of console.log|console.error
+  find_occurences_push:
+    name: Find occurences (push) of console.log|console.error
     runs-on: ubuntu-latest
+
+    if: ${{ github.event_name == 'push' }} 
 
     steps:
       - name: Checkout repository
@@ -28,8 +30,35 @@ jobs:
         uses: ./
         id: changed-files
         with:
-          before-sha: ${{ github.event.before }}
-          after-sha: ${{ github.sha }}
+          before: ${{ github.event.before }}
+          after: ${{ github.sha }}
+          search-term: console.log|console.error
+          file-types: (.ts|.js|.tsx|.jsx)$
+          should-fail: true
+
+  find_occurences_pull_request:
+    name: Find occurences (pull_request) of console.log|console.error
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event_name == 'pull_request' }} 
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Show GitHub context TEST
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: Find occurences 
+        uses: ./
+        id: changed-files
+        with:
+          before: ${{ github.base_ref }}
+          after: ${{ github.head_ref }}
           search-term: console.log|console.error
           file-types: (.ts|.js|.tsx|.jsx)$
           should-fail: true

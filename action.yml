@@ -5,12 +5,12 @@ name: 'Check for console.log'
 description: 'Ensure no console.log is left in the code'
 
 inputs:
-  before-sha:
-    description: 'Sha of the commit before the push'
+  before:
+    description: 'Sha/ref before the change'
     required: true
     default: ''
-  after-sha:
-    description: 'Sha of the commit'
+  after:
+    description: 'Sha/ref of the change'
     required: true
     default: ''
   search-term:
