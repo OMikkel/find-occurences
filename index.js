@@ -11,6 +11,7 @@ const run = async () => {
         const file_types = core.getInput("file-types")
         const should_fail = core.getInput("should-fail")
         var occurences = ""
+        var occurences_count = 0
 
         try {
             const { stdout, stderr } = await exec(`git diff --name-only --diff-filter=ACMRT ${ before_sha } ${ after_sha } | grep -E '${ file_types }' | xargs`);
@@ -28,6 +29,7 @@ const run = async () => {
                         return
                     }
                     core.debug("stdout: " + stdout)
+                    occurences_count += 1
                     occurences += stdout + "\n"
                 } catch (error) {
                     return
@@ -38,9 +40,9 @@ const run = async () => {
             .then(() => {
                 if (occurences.length > 0) {
                     if (should_fail == "true") {
-                        core.setFailed(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
+                        core.setFailed(`Found ${ occurences_count } occurences of ${ search_term }\n${ occurences }`);
                     }else{
-                        core.warning(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
+                        core.warning(`Found ${ occurences_count } occurences of ${ search_term }\n${ occurences }`);
                     }
                 }
             })
