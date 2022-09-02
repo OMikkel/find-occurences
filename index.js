@@ -16,7 +16,7 @@ const run = async () => {
 
         try {
             if (check_all == "true") {
-                const { stdout, stderr } = await exec(`git ls-files`);
+                const { stdout, stderr } = await exec(`git ls-files --exclude=./node_modules/*`);
                 if (stderr) {
                     core.setFailed(stderr);
                     return;
