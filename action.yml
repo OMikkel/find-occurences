@@ -17,6 +17,14 @@ inputs:
     description: 'What to search for'
     required: true
     default: ''
+  file-types:
+    description: 'File types to search for'
+    required: true
+    default: ''
+  should-fail:
+    description: 'Should the action fail if the search term is found'
+    required: false
+    default: 'false'
 outputs:
   all:
     description: 'A list of all the changed typescript/javascript files'

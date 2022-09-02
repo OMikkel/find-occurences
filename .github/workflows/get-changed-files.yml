@@ -28,13 +28,15 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Action 
+      - name: Find occurences 
         uses: ./
         id: changed-files
         with:
           before-sha: ${{ github.event.before }}
           after-sha: ${{ github.sha }}
           search-term: console.log|console.error
+          files-types: (.ts|.js|.tsx|.jsx)$
+          should-fail: true
 
       - name: All changed files (typescript/javascript)
         run: echo "${{ steps.changed-files.outputs.all }}"

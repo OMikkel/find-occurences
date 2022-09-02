@@ -8,15 +8,24 @@ const run = async () => {
         const before_sha = core.getInput("before-sha")
         const after_sha = core.getInput("after-sha")
         const search_term = core.getInput("search-term")
+        const file_types = core.getInput("file-types")
+        const should_fail = core.getInput("should-fail")
         var occurences = ""
-        const { stdout, stderr } = await exec(`git diff --name-only --diff-filter=ACMRT ${ before_sha } ${ after_sha } | grep -E '(.ts|.js|.tsx|.jsx)$' | xargs`);
-        if (stderr) {
-            core.setFailed(stderr);
+
+        try {
+            const { stdout, stderr } = await exec(`git diff --name-only --diff-filter=ACMRT ${ before_sha } ${ after_sha } | grep -E '${ file_types }' | xargs`);
+            if (stderr) {
+                core.setFailed(stderr);
+                return
+            }
+        } catch (error) {
+            core.setFailed(error.message);
             return
         }
-        core.setOutput("all", stdout);
+
         const files = stdout.split(" ").map(file => file.trim())
         core.debug(files)
+
         const mapFiles = files.map(async file => {
             try {
                 const { stdout, stderr } = await exec(`grep --color=always -H -n -E -A 3 -B 3 '${ search_term }' ./${ file }`);
@@ -24,7 +33,7 @@ const run = async () => {
                     return
                 }
                 core.debug("stdout: " + stdout)
-                occurences += stdout + "\n\n"
+                occurences += stdout + "\n"
             } catch (error) {
                 return
             }
@@ -32,7 +41,10 @@ const run = async () => {
 
         return Promise.all(mapFiles)
         .then(() => {
-            core.setOutput("occurences", occurences);
+            if (should_fail == true) {
+                core.setFailed(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
+            }
+            core.warning(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
         })
     } catch (error) {
         core.setFailed(error.message);
