@@ -11,7 +11,8 @@ try {
             return
         }
         core.setOutput("all", output);
-        core.debug(output.replace(/(\r\n|\r|\n)/g, ""))
+        const files = output.split(" ").map(file => file.trim())
+        core.debug(files)
     })
 } catch (error) {
     core.setFailed(error.message);
