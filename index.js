@@ -5,7 +5,7 @@ const { exec } = require("node:child_process");
 try {
     const before_sha = core.getInput("before-sha")
     const after_sha = core.getInput("after-sha")
-    exec(`git diff --name-only --diff-filter=ACMRT ${ before_sha } ${ after_sha } | grep .ts$|.js$|.tsx$|.jsx$ | xargs`, (err, output) => {
+    exec(`git diff --name-only --diff-filter=ACMRT ${ before_sha } ${ after_sha } | grep .ts$ | xargs`, (err, output) => {
         if (err) {
             core.setFailed(err.message);
             return
