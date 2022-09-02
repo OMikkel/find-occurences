@@ -1,17 +1,23 @@
 author: "OMikkel"
 
-name: 'Hello World'
+name: 'Check for console.log'
 
-description: 'Greet someone and record the time'
+description: 'Ensure no console.log is left in the code'
 
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  before-sha:
+    description: 'Sha of the commit before the push'
     required: true
-    default: 'World'
+    default: ''
+  after-sha:
+    description: 'Sha of the commit'
+    required: true
+    default: ''
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  all:
+    description: 'A list of all the changed files'
+  ts:
+    description: 'A list of all the changed typescript files'
 runs:
   using: 'node16'
   main: 'index.js'

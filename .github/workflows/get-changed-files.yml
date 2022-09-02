@@ -19,7 +19,7 @@ jobs:
         run: |
           echo 
           echo "::set-output name=all::$()"
-          echo "::set-output name=ts::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.before }} ${{ github.sha }} | grep .ts$ | xargs)"
+          echo "::set-output name=ts::$("
       - name: Echo changed files
         run: echo ${{ steps.changes.outputs.all }}
       - name: echo changed files
@@ -37,9 +37,17 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 2
+
       - name: Action 
         uses: ./
-        id: check-files
-      - name: Echo ls
-        run: echo "${{ steps.check-files.outputs.ls }}"
+        id: changed-files
+        with:
+          before-sha: ${{ github.event.before }}
+          after-sha: ${{ github.sha }}
+
+      - name: All changed files
+        run: echo "${{ steps.changed-files.outputs.all }}"
+
+      - name: All changed files (typescript)
+        run: echo "${{ steps.changed-files.outputs.ts }}"
       
