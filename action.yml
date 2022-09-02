@@ -1,17 +1,17 @@
 author: "OMikkel"
 
-name: 'Check for console.log'
+name: 'Check for search-term in files'
 
-description: 'Ensure no console.log is left in the code'
+description: 'Ensure no occurences of search-term is left in the code'
 
 inputs:
-  before-sha:
-    description: 'Sha of the commit before the push'
-    required: true
+  before:
+    description: 'Sha/ref before the change'
+    required: false
     default: ''
-  after-sha:
-    description: 'Sha of the commit'
-    required: true
+  after:
+    description: 'Sha/ref of the change'
+    required: false
     default: ''
   search-term:
     description: 'What to search for'
@@ -25,11 +25,14 @@ inputs:
     description: 'Should the action fail if the search term is found'
     required: false
     default: 'false'
-outputs:
-  all:
-    description: 'A list of all the changed typescript/javascript files'
-  occurences:
-    description: 'A list of all the occurences of the search term'
+  check-all:
+    description: 'Should the action check all files or only the changed ones'
+    required: false
+    default: 'false'
+  check-all-exclude:
+    description: 'Files to exclude from the check-all'
+    required: false
+    default: ':!:node_modules/*'
 runs:
   using: 'node16'
   main: 'index.js'

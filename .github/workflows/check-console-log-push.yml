@@ -1,0 +1,26 @@
+name: "Check changes for console.log and console.error"
+
+on: 
+  push:
+    branches:
+      - '**'
+
+jobs:
+  find_occurences:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Find occurences 
+        uses: ./
+        with:
+          before: ${{ github.event.before }}
+          after: ${{ github.sha }}
+          search-term: console.log|console.error
+          file-types: (.ts|.js|.tsx|.jsx)$
+          should-fail: true
+          check-all: false
