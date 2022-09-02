@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const util = require('node:util');
 const exec = util.promisify(require('node:child_process').exec);
 
-export const check_all_fnc = async (check_all_exclude, file_types, search_term, should_fail) => {
+const check_all_fnc = async (check_all_exclude, file_types, search_term, should_fail) => {
     var occurences = ""
     var occurences_count = 0
     const { stdout, stderr } = await exec(`git ls-files -- '${check_all_exclude}' | grep -E '${ file_types }' | xargs`);
@@ -41,3 +41,5 @@ export const check_all_fnc = async (check_all_exclude, file_types, search_term, 
         }
     })
 }
+
+module.exports = check_all_fnc

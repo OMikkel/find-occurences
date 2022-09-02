@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const util = require('node:util');
 const exec = util.promisify(require('node:child_process').exec);
 
-export const check_diff_fnc = async (before, after, file_types, search_term, should_fail) => {
+const check_diff_fnc = async (before, after, file_types, search_term, should_fail) => {
     var occurences = ""
     var occurences_count = 0
     const { stdout, stderr } = await exec(`git diff --name-only --diff-filter=ACMRT ${ before }...${ after } | grep -E '${ file_types }' | xargs`);
@@ -38,3 +38,5 @@ export const check_diff_fnc = async (before, after, file_types, search_term, sho
         }
     })
 }
+
+module.exports = check_diff_fnc
