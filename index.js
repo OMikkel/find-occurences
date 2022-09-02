@@ -15,7 +15,7 @@ const run = async () => {
         core.setOutput("all", stdout);
         const files = stdout.split(" ").map(file => file.trim())
         core.debug(files)
-        files.map(file => {
+        files.map(async file => {
             const { stdout, stderr } = await exec("grep -E 'console.log|console.error' ./" + file);
             if (stderr) {
                 core.setFailed(stderr);
