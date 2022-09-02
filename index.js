@@ -37,7 +37,7 @@ const run = async () => {
             return Promise.all(mapFiles)
             .then(() => {
                 if (occurences.length > 0) {
-                    if (should_fail == true) {
+                    if (should_fail == "true") {
                         core.setFailed(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
                     }
                     core.warning(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
