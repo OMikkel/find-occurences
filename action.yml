@@ -20,6 +20,8 @@ inputs:
 outputs:
   all:
     description: 'A list of all the changed typescript/javascript files'
+  occurences:
+    description: 'A list of all the occurences of the search term'
 runs:
   using: 'node16'
   main: 'index.js'

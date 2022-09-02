@@ -39,3 +39,6 @@ jobs:
       - name: All changed files (typescript/javascript)
         run: echo "${{ steps.changed-files.outputs.all }}"
       
+      - name: All occurences of the search term
+        run: echo "${{ steps.changed-files.outputs.occurences }}"
+      
