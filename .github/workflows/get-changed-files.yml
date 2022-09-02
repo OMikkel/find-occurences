@@ -57,8 +57,8 @@ jobs:
         uses: ./
         id: changed-files
         with:
-          before: ${{ github.base_ref }}
-          after: ${{ github.head_ref }}
+          before: origin/${{ github.base_ref }}
+          after: origin/${{ github.head_ref }}
           search-term: console.log|console.error
           file-types: (.ts|.js|.tsx|.jsx)$
           should-fail: true

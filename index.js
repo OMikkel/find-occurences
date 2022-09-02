@@ -14,7 +14,7 @@ const run = async () => {
         var occurences_count = 0
 
         try {
-            const { stdout, stderr } = await exec(`git diff --name-only --diff-filter=ACMRT origin/${ before }...origin/${ after } | grep -E '${ file_types }' | xargs`);
+            const { stdout, stderr } = await exec(`git diff --name-only --diff-filter=ACMRT ${ before }...${ after } | grep -E '${ file_types }' | xargs`);
             if (stderr) {
                 core.setFailed(stderr);
                 return
