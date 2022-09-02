@@ -29,7 +29,7 @@ const run = async () => {
                         return
                     }
                     core.debug("stdout: " + stdout)
-                    occurences_count += 1
+                    occurences_count += stdout.split("\n").length - 1
                     occurences += stdout + "\n"
                 } catch (error) {
                     return
