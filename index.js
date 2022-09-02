@@ -17,7 +17,7 @@ const run = async () => {
         core.setOutput("all", stdout);
         const files = stdout.split(" ").map(file => file.trim())
         core.debug(files)
-        files.map(async file => {
+        const mapFiles = files.map(async file => {
             try {
                 const { stdout, stderr } = await exec(`grep --color=always -n -c -E '${ search_term }' ./${ file }`);
                 if (stderr) {
@@ -29,7 +29,11 @@ const run = async () => {
                 return
             }
         })
-        core.setOutput("occurences", occurences);
+
+        return Promise.all(mapFiles)
+        .then(() => {
+            core.setOutput("occurences", occurences);
+        })
     } catch (error) {
         core.setFailed(error.message);
     }
