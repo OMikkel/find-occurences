@@ -18,34 +18,37 @@ const run = async () => {
                 core.setFailed(stderr);
                 return
             }
+            const files = stdout.split(" ").map(file => file.trim())
+            core.debug(files)
+
+            const mapFiles = files.map(async file => {
+                try {
+                    const { stdout, stderr } = await exec(`grep --color=always -H -n -E -A 3 -B 3 '${ search_term }' ./${ file }`);
+                    if (stderr) {
+                        return
+                    }
+                    core.debug("stdout: " + stdout)
+                    occurences += stdout + "\n"
+                } catch (error) {
+                    return
+                }
+            })
+
+            return Promise.all(mapFiles)
+            .then(() => {
+                if (occurences.length > 0) {
+                    if (should_fail == true) {
+                        core.setFailed(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
+                    }
+                    core.warning(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
+                }
+            })
         } catch (error) {
             core.setFailed(error.message);
             return
         }
 
-        const files = stdout.split(" ").map(file => file.trim())
-        core.debug(files)
-
-        const mapFiles = files.map(async file => {
-            try {
-                const { stdout, stderr } = await exec(`grep --color=always -H -n -E -A 3 -B 3 '${ search_term }' ./${ file }`);
-                if (stderr) {
-                    return
-                }
-                core.debug("stdout: " + stdout)
-                occurences += stdout + "\n"
-            } catch (error) {
-                return
-            }
-        })
-
-        return Promise.all(mapFiles)
-        .then(() => {
-            if (should_fail == true) {
-                core.setFailed(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
-            }
-            core.warning(`Found ${ occurences.split("\n").length - 1 } occurences of ${ search_term }\n${ occurences }`);
-        })
+        
     } catch (error) {
         core.setFailed(error.message);
     }
