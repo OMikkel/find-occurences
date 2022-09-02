@@ -36,5 +36,5 @@ jobs:
           after-sha: ${{ github.sha }}
           search-term: console.log|console.error
           file-types: (.ts|.js|.tsx|.jsx)$
-          should-fail: true
+          should-fail: false
       
