@@ -1,5 +1,9 @@
 author: "OMikkel"
 
+icon: search
+
+color: green
+
 name: 'Find Occurences of search-term in files'
 
 description: 'Ensure no occurences of search-term is left in the code'
