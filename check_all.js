@@ -12,6 +12,7 @@ const check_all_fnc = async (check_all_exclude, file_types, search_term, should_
     }
 
     const files = stdout.split(" ").map(file => file.trim())
+    core.setOutput("checked-files", files)
     core.debug(files)
 
     const mapFiles = files.map(async file => {
@@ -32,11 +33,17 @@ const check_all_fnc = async (check_all_exclude, file_types, search_term, should_
     .then(() => {
         if (occurences.length > 0) {
             if (should_fail == "true") {
+                core.setOutput("occurences", occurences)
+                core.setOutput("occurences_count", occurences_count)
                 core.setFailed(`Found ${ occurences_count } occurences of ${ search_term }\n${ occurences }`);
             }else{
+                core.setOutput("occurences", occurences)
+                core.setOutput("occurences_count", occurences_count)
                 core.warning(`Found ${ occurences_count } occurences of ${ search_term }\n${ occurences }`);
             }
         }else{
+            core.setOutput("occurences", occurences)
+            core.setOutput("occurences_count", occurences_count)
             core.notice(`Found ${ occurences_count } occurences of ${ search_term }`);
         }
     })

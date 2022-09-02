@@ -1,6 +1,6 @@
 author: "OMikkel"
 
-name: 'Check for search-term in files'
+name: 'Find Occurences of search-term in files'
 
 description: 'Ensure no occurences of search-term is left in the code'
 
@@ -15,25 +15,31 @@ inputs:
     default: ''
   search-term:
     description: 'What to search for'
-    required: true
-    default: ''
-  file-types:
-    description: 'File types to search for'
-    required: true
-    default: ''
-  should-fail:
-    description: 'Should the action fail if the search term is found'
     required: false
-    default: 'false'
+    default: 'console.log|console.error'
+  file-types:
+    description: 'File types to check for the search-term'
+    required: false
+    default: '(.ts|.js|.tsx|.jsx)$'
+  should-fail:
+    description: 'Should the action fail if the search-term is found'
+    required: false
+    default: 'true'
   check-all:
     description: 'Should the action check all files or only the changed ones'
     required: false
     default: 'false'
   check-all-exclude:
-    description: 'Files to exclude from the check-all'
+    description: 'Files to exclude from the check-all check'
     required: false
     default: ':!:node_modules/*'
+outputs:
+  occurences-count:
+    description: 'Number of occurences found'
+  occurences:
+    description: 'String of occurences found'
+  checked-files:
+    description: 'String of checked files'
 runs:
   using: 'node16'
-  main: 'index.js'
-
+  main: 'dist/index.js'
