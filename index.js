@@ -19,7 +19,7 @@ const run = async () => {
         core.debug(files)
         const mapFiles = files.map(async file => {
             try {
-                const { stdout, stderr } = await exec(`grep --color=always -n -E '${ search_term }' ./${ file }`);
+                const { stdout, stderr } = await exec(`grep --color=always -H -n -E '${ search_term }' ./${ file }`);
                 if (stderr) {
                     return
                 }
