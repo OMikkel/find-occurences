@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const check_all_fnc = require('./check_all');
-const { check_diff_fnc } = require('./check_diff');
+const check_diff_fnc = require('./check_diff');
 
 const run = async () => {
     try {
