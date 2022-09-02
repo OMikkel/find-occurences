@@ -7,11 +7,11 @@ description: 'Ensure no console.log is left in the code'
 inputs:
   before:
     description: 'Sha/ref before the change'
-    required: true
+    required: false
     default: ''
   after:
     description: 'Sha/ref of the change'
-    required: true
+    required: false
     default: ''
   search-term:
     description: 'What to search for'
@@ -23,6 +23,10 @@ inputs:
     default: ''
   should-fail:
     description: 'Should the action fail if the search term is found'
+    required: false
+    default: 'false'
+  check-all:
+    description: 'Should the action check all files or only the changed ones'
     required: false
     default: 'false'
 outputs:

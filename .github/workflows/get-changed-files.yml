@@ -35,6 +35,7 @@ jobs:
           search-term: console.log|console.error
           file-types: (.ts|.js|.tsx|.jsx)$
           should-fail: true
+          check-all: true
 
   find_occurences_pull_request:
     name: Find occurences (pull_request) of console.log|console.error
@@ -62,4 +63,8 @@ jobs:
           search-term: console.log|console.error
           file-types: (.ts|.js|.tsx|.jsx)$
           should-fail: true
+          check-all: true
+      
+      - name: Show all files
+        run: echo "${{ steps.changed-files.outputs.all }}"
         
