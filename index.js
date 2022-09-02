@@ -3,7 +3,7 @@ const github = require('@actions/github');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-(async () => {
+const run = async () => {
     try {
         const before_sha = core.getInput("before-sha")
         const after_sha = core.getInput("after-sha")
@@ -26,4 +26,6 @@ const exec = util.promisify(require('child_process').exec);
     } catch (error) {
         core.setFailed(error.message);
     }
-})();
+}
+
+run()
