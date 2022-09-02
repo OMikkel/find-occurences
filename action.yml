@@ -1,8 +1,8 @@
 author: "OMikkel"
 
-icon: search
-
-color: green
+branding:
+  icon: search
+  color: green
 
 name: 'Find Occurences of search-term in files'
 
