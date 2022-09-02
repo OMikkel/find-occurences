@@ -35,9 +35,6 @@ jobs:
           before-sha: ${{ github.event.before }}
           after-sha: ${{ github.sha }}
 
-      - name: All changed files
+      - name: All changed files (typescript/javascript)
         run: echo "${{ steps.changed-files.outputs.all }}"
-
-      - name: All changed files (typescript)
-        run: echo "${{ steps.changed-files.outputs.ts }}"
       

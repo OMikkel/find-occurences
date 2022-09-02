@@ -15,9 +15,7 @@ inputs:
     default: ''
 outputs:
   all:
-    description: 'A list of all the changed files'
-  ts:
-    description: 'A list of all the changed typescript files'
+    description: 'A list of all the changed typescript/javascript files'
 runs:
   using: 'node16'
   main: 'index.js'
