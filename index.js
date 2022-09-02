@@ -17,7 +17,7 @@ const run = async () => {
         const files = stdout.split(" ").map(file => file.trim())
         core.debug(files)
         files.map(async file => {
-            const { stdout, stderr } = await exec(`grep --color=auto -n -c -E '${ search_term }' ./${ file }`);
+            const { stdout, stderr } = await exec(`grep --color=always -n -c -E '${ search_term }' ./${ file }`);
             if (stderr) {
                 core.setFailed(stderr);
                 return
