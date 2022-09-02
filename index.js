@@ -12,7 +12,7 @@ try {
         }
         core.setOutput("all", output);
     })
-    exec(`git diff --name-only --diff-filter=ACMRT ${ before_sha } ${ after_sha } | grep .ts$ | xargs)`, (err, output) => {
+    exec(`git diff --name-only --diff-filter=ACMRT ${ before_sha } ${ after_sha } | grep .ts$ | xargs`, (err, output) => {
         if (err) {
             core.setFailed(err.message);
             return
