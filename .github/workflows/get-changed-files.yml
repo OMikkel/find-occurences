@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Show GitHub context
+      - name: Show GitHub context TEST
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
