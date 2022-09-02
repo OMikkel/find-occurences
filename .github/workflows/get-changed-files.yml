@@ -1,26 +1,16 @@
-name: "Get Changed Files"
+name: "Check file for console.log and console.error"
 
 on: 
   push:
     branches:
-      - master
-
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+    
 jobs:
-  changedFiles:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
-  my_action:
-    needs: changedFiles
+  find_occurences:
+    name: Find occurences of console.log|console.error
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -36,5 +26,5 @@ jobs:
           after-sha: ${{ github.sha }}
           search-term: console.log|console.error
           file-types: (.ts|.js|.tsx|.jsx)$
-          should-fail: false
-      
+          should-fail: true
+        
