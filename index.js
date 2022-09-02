@@ -18,12 +18,16 @@ const run = async () => {
         const files = stdout.split(" ").map(file => file.trim())
         core.debug(files)
         files.map(async file => {
-            const { stdout, stderr } = await exec(`grep --color=always -n -c -E '${ search_term }' ./${ file }`);
-            if (stderr) {
+            try {
+                const { stdout, stderr } = await exec(`grep --color=always -n -c -E '${ search_term }' ./${ file }`);
+                if (stderr) {
+                    return
+                }
+                core.debug("stdout: " + stdout)
+                occurences += stdout
+            } catch (error) {
                 return
             }
-            core.debug("stdout: " + stdout)
-            occurences += stdout
         })
         core.setOutput("occurences", occurences);
     } catch (error) {
