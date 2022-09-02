@@ -37,10 +37,4 @@ jobs:
           search-term: console.log|console.error
           file-types: (.ts|.js|.tsx|.jsx)$
           should-fail: true
-
-      - name: All changed files (typescript/javascript)
-        run: echo "${{ steps.changed-files.outputs.all }}"
-      
-      - name: All occurences of the search term
-        run: echo "${{ steps.changed-files.outputs.occurences }}"
       
