@@ -11,7 +11,7 @@ try {
             return
         }
         core.setOutput("all", output);
-        console.log(output)
+        core.debug(output)
     })
 } catch (error) {
     core.setFailed(error.message);
